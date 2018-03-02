@@ -1,0 +1,62 @@
+<nb-card>
+<nb-card-header>Nehal's Store</nb-card-header>
+<nb-card-body>
+<table class="table table-hover table-bordered table-striped">
+
+   
+  <tr>
+    <th class="text-center">Name</th>
+    <th class="text-center">Price</th>
+    <th class="text-center">CreatedAt</th>
+    <th class="text-center">UpdatedAt</th>
+    <th class="text-center">Seller</th>
+    <th class="text">Services</th>
+
+  </tr>
+
+  
+  <tr *ngFor="let product of tableData">
+    <!-- The products that are not in edit mode -->
+    <td class="text-center">{{product.name}}</td>
+    <td class="text-center">{{product.price|currency}}</td>
+    <td class="text-center">{{product.createdAt| date}}</td>
+    <td class="text-center">{{product.updatedAt| date}}</td>
+    <td class="text-center">{{product.sellerName}}</td>
+    <button type="button"class="btn btn-warning" (click) = "edit(product)"><i class="fa fa-edit"></i></button>    
+      <button class="btn btn-danger"(click)="DeleteProd(product)"> <i class="fa fa-minus"></i></button>
+
+    
+    
+    
+
+</table>
+
+
+<button class="btn btn-success"(click)="addprod()"><i class="fa fa-plus"></i></button>
+
+<!-- Where a new product gets created -->
+
+<tr *ngIf="addProduct">
+    <p>Product Name: <input type="text" name="name"[(ngModel)]="Product.name" /></p>
+    <p>Price: <input type="text"name="price"[(ngModel)]="Product.price" /></p>
+    <p>Seller Name: <input type="text"name="sellerName" [(ngModel)]="Product.sellerName" /></p>      
+    
+    <button type="button"class="btn btn-primary"(click)="save(Product)">Add</button>
+    <button type="button"class="btn btn-warning"(click)="cancel()">Cancel</button> 
+    </tr>  
+
+<!-- Where products get edited -->
+    <tr *ngIf="EditProduct">
+        Name: <input #ProdName [(ngModel)]="name" required/>
+        Price: <input #Price [(ngModel)]="price" required/>
+        Seller: <input #ProdSeller [(ngModel)]="sellerName" required/>
+        <button type="button"class="btn btn-primary" (click) = "removeEdit()" (click) = "update({name: ProdName.value, price: Price.value, sellerName: ProdSeller.value})">UPDATE</button>
+        <button type="button"class="btn btn-warning" (click) = "removeEdit()">Cancel</button>
+    </tr>
+  
+
+
+
+</nb-card-body>
+<nb-card-footer>Thank you for visiting the store!</nb-card-footer>
+</nb-card>
